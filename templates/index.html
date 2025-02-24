@@ -1,0 +1,18 @@
+<!-- Index page which provides a simple GUI to control the ACT LED -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Control</title>
+</head>
+<body>
+    <button onclick="sendRequest('on')">ON</button>
+    <button onclick="sendRequest('off')">OFF</button>
+    <button onclick="sendRequest('default')">DEFAULT</button>
+
+    <script>
+        function sendRequest(state) {
+            fetch(`/led/${state}`);
+        }
+    </script>
+</body>
+</html>

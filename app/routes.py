@@ -2,11 +2,12 @@
 
 from app import app
 from utils.led_control import led_on, led_off, led_default
+from flask import render_template
 
 @app.route('/')
-def home():
-    # Home route for displaying a hello world statement
-    return "Hello world! Flask is running on the Raspberry Pi 3."
+def index():
+    # Index route for rendering the index html page
+    return render_template("index.html")
 
 @app.route('/led/on')
 def turn_led_on():
