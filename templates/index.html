@@ -1,17 +1,33 @@
 <!-- Index page which provides a simple GUI to control the ACT LED -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>LED Control</title>
 </head>
 <body>
-    <button onclick="sendRequest('on')">ON</button>
-    <button onclick="sendRequest('off')">OFF</button>
-    <button onclick="sendRequest('default')">DEFAULT</button>
+    <h1>Pi-3 Web LED Control</h1>
+    <p id="directions">Click a command button to control the ACT LED:</p>
+    <button onclick="sendCommand('on')">Turn LED On</button>
+    <button onclick="sendCommand('off')">Turn LED Off</button>
+    <button onclick="sendCommand('default')">Reset to Default</button>
+    <p id="status"></p>
 
     <script>
-        function sendRequest(state) {
-            fetch(`/led/${state}`);
+        // Sends a command over HTTP to the Pi to set the LED state
+        function sendCommand(state) {
+            // Get a reference to the status element
+            const statusElement = document.getElementById("status");
+
+            // Issue the command to the appropriate command round
+            fetch(`/led/${state}`)
+            .then(response => response.text())
+            .then(data => statusElement.innerText = data) // Set the status element text to the success state
+            .catch(error => {
+                // Log the error and set the status element text to the error state
+                console.error("Error: ", error);
+                statusElement.innerText = "An error occurred";
+            })
         }
     </script>
 </body>
